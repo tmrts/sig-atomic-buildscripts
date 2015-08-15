@@ -1,17 +1,17 @@
 # Like the cloud image, but tuned for vagrant.  Enable
-# the vagrant user, disable cloud-init.
+# the vagrant user, disable flamingo.
 
 %include centos-atomic-host-7.ks
 
-services --disabled=cloud-init,cloud-init-local,cloud-config,cloud-final
+services --disabled=flamingo
 
 user --name=vagrant --password=vagrant
 
 %post --erroronfail
 
-# Work around cloud-init being both disabled and enabled; need
+# Work around flamingo being both disabled and enabled; need
 # to refactor to a common base.
-rm /etc/systemd/system/multi-user.target.wants/cloud-init* /etc/systemd/system/multi-user.target.wants/cloud-config*
+rm /etc/systemd/system/multi-user.target.wants/flamingo* /etc/systemd/system/multi-user.target.wants/cloud-config*
 
 # Vagrant setup
 sed -i 's,Defaults\\s*requiretty,Defaults !requiretty,' /etc/sudoers
