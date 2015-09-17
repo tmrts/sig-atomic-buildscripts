@@ -32,7 +32,7 @@ set -o pipefail
 
 ## update script from git, commented out for now
 cd ${BuildDir}
-git clone https://github.com/CentOS/sig-atomic-buildscripts && cd sig-atomic-buildscripts && git checkout downstream
+git clone https://github.com/tmrts/sig-atomic-buildscripts && cd sig-atomic-buildscripts && git checkout flamingo
 cd ${BuildDir}
 
 # Init, make sure we have the bits we need installed. 
@@ -60,7 +60,7 @@ fi
 
 # sync repo from ds location
 
-ostree remote add --repo=/srv/repo centos-atomic-host --set=gpg-verify=false http://mirror.centos.org/centos/7/atomic/x86_64/repo && ostree pull --repo=/srv/repo --mirror centos-atomic-host centos-atomic-host/7/x86_64/standard
+ostree remote add --repo=/srv/repo centos-atomic-host --set=gpg-verify=false http://104.197.125.247:8001/centos-atomic-host/7/ && ostree pull --repo=/srv/repo --mirror centos-atomic-host centos-atomic-host/7/x86_64/standard
 
 ## compose a new tree, based on defs in centos-atomic-host.json
 

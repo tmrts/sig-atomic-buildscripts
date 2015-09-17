@@ -13,7 +13,6 @@ firewall --disabled
 bootloader --timeout=1 --append="no_timer_check console=tty1 console=ttyS0,115200n8"
 
 network --bootproto=dhcp --device=eth0 --activate --onboot=on
-services --disabled=cloud-init,cloud-init-local,cloud-config,cloud-final
 # We use NetworkManager, and Avahi doesn't make much sense in the cloud
 services --disabled=network,avahi-daemon
 
@@ -110,10 +109,6 @@ rm -f /var/lib/rpm/__db*
 %end
 
 %post --erroronfail
-
-# Work around cloud-init being both disabled and enabled; need
-# to refactor to a common base.
-rm /etc/systemd/system/multi-user.target.wants/{cloud-config.service,cloud-final.service,cloud-init-local.service,cloud-init.service}
 
 # Vagrant setup
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
